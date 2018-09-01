@@ -1,4 +1,6 @@
 const validParentheses = (str) => {
+  // Invalid: wrong length, starts with ), ends with (
+  // or number of ( is not half the total, so there's an asymmetry of (s and )s
   if (
     str.length < 0 ||
     str.length > 100 ||
@@ -9,11 +11,12 @@ const validParentheses = (str) => {
     return false;
   }
 
+  // Valid
   return true;
 };
 
 // Testing
-console.log(validParentheses("()"));             // true
-console.log(validParentheses(")(()))"));         // false
-console.log(validParentheses("("));              // false
-console.log(validParentheses("(())((()())())")); // true
+// console.log(validParentheses("()"));             // true
+// console.log(validParentheses(")(()))"));         // false
+// console.log(validParentheses("("));              // false
+// console.log(validParentheses("(())((()())())")); // true
