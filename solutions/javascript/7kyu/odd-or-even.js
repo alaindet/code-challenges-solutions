@@ -7,9 +7,7 @@
  * @param array numbers 
  * @return string 'even' or 'odd'
  */
-const oddOrEven = (numbers) => {
-  return (numbers||[0]).reduce((s, n) => s+=n, 0)%2===0 ? 'even' : 'odd';
-};
+const oddOrEven = (n) => (n||[0]).reduce((s,i)=>s+=i,0)%2===0?'even':'odd';
 
 // Testing
 console.log(oddOrEven([2, 5, 34, 6]));
