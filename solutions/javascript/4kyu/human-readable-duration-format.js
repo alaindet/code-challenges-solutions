@@ -11,6 +11,11 @@
  * @return string
  */
 const formatDuration = (seconds) => {
+
+  if (seconds === 0) {
+    return 'now';
+  }
+
   return [
     { label: 'year', duration: 365 * 24 * 60 * 60 },
     { label: 'day', duration: 24 * 60 * 60 },
