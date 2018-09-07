@@ -12,10 +12,12 @@
  */
 const formatDuration = (seconds) => {
 
+  // Edge case
   if (seconds === 0) {
     return 'now';
   }
 
+  // Define all time units and their durations
   return [
     { label: 'year', duration: 365 * 24 * 60 * 60 },
     { label: 'day', duration: 24 * 60 * 60 },
@@ -23,20 +25,32 @@ const formatDuration = (seconds) => {
     { label: 'minute', duration: 60 },
     { label: 'second', duration: 1 },
   ]
+
+  // Calculate real time units duration based on input
   .map(unit => {
     let value = Math.floor(seconds / unit.duration);
     seconds -= value * unit.duration;
     unit.duration = value;
     return unit;
   })
+
+  // Remove unused time units
   .filter(unit => unit.duration > 0)
-  .map((unit) => {
-    return `${unit.duration} ${unit.label}` + (unit.duration > 1 ? "s" : "");
-  })
-  .reduce((result, unit, i, units) => {
-    let last = i === units.length - 1;
-    let penultimate = i === units.length - 2;
-    return result += unit + (last ? '' : (penultimate ? ' and ' : ', '));
+
+  // Format final string
+  .reduce((result, unit, index, units) => {
+
+    // Build this unit's string
+    let pluralizer = unit.duration > 1 ? 's' : '';
+    let unitString = `${unit.duration} ${unit.label}${pluralizer}`;
+
+    // Calculate the needed glue (based on index)
+    let isLast = (index === units.length - 1);
+    let isSecondlast = (index === units.length - 2);
+    let glue = isLast ? '' : (isSecondlast ? ' and ' : ', ');
+
+    // Add to the final string
+    return result += unitString + glue;
   }, '');
 };
 
