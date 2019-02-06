@@ -23,9 +23,11 @@ const validSolution = board => {
   // Populate all sums
   for (y = 0; y < 9; y++) {
     for (x = 0; x < 9; x++) {
-      rowSums[y] += board[y][x];
-      colSums[x] += board[y][x];
-      squareSums[Math.floor(y / 3)][Math.floor(x / 3)] += board[y][x];
+      const value = board[y][x];
+      if (!value) throw false;
+      rowSums[y] += value;
+      colSums[x] += value;
+      squareSums[Math.floor(y / 3)][Math.floor(x / 3)] += value;
     }
   }
 
