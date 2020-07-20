@@ -1,3 +1,4 @@
+// ATTEMPT
 // https://www.codewars.com/kata/58bf8041aa4014a09e000013/train/javascript
 // https://en.wikipedia.org/wiki/Voronoi_diagram
 

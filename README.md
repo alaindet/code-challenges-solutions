@@ -1,8 +1,8 @@
 # Codewars.com solutions
 
-This repository collects all my codewars.com solutions I'll come up with, from time to time. I usually solve katas in JavaScript using ES6 syntax to apply the learn-by-doing principles.
+This repository collects all my codewars.com *solutions* as well as *attempts*. Attempts have an `// ATTEMPT` comment on top. Every solution has a reference to the codewars website.
 
-## Solutions
+## Directory structure
 
 The directory hierarchy follows this convention
 
@@ -12,6 +12,13 @@ The directory hierarchy follows this convention
 
 where
 
-- `$LANGUAGE` can be `javascript`, `php`, `python`...
-- `$DIFFICULY` is based on the kyu system so `8kyu`, `7kyu`, `6kyu`... (lower is more difficult)
+- `$LANGUAGE` can be `javascript`, etc.
+- `$DIFFICULY` is based on the kyu system so `8kyu`, `7kyu`, `6kyu`... (lower number is more difficult)
 - `$KATA_NAME` is simply a `kebab-case` transformation of the Kata's name, like `pascals-triangle` for "Pascal's Triangle"
+
+
+## Languages used so far
+
+- TypeScript
+- JavaScript
+- PHP

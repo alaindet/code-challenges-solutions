@@ -1,3 +1,4 @@
+// ATTEMPT
 // https://www.codewars.com/kata/5a70285ab17101627a000024/train/javascript
 
 const YAY = 'O';
