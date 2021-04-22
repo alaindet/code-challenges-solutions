@@ -34,7 +34,11 @@ tests = [
     {
         'assertion': digital_root(493193),
         'expected': 2
-     }
+    },
+    {
+        'assertion': digital_root(123456789),
+        'expected': 9,
+    },
 ]
 
 for test in tests:
