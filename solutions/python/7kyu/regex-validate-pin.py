@@ -4,12 +4,14 @@ from re import compile
 
 valid_pin_pattern = compile('^([0-9]{4}|([0-9]{6}))$')
 
+
 def validate_pin(pin: str) -> bool:
 
     if len(pin.rstrip()) != len(pin):
         return False
 
     return valid_pin_pattern.search(pin) is not None
+
 
 tests = (
     {
