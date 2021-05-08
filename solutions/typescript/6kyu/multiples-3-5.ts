@@ -18,18 +18,7 @@ export class Challenge {
 /**
  * Alternative 1
  */
-const divisibleBy = (...dividends: number[]): (n: number) => boolean => {
-  return n => dividends.some(d => n % d == 0)
-};
-
-const range = (n: number): number[] => {
-  const range = [];
-  for (let i = 0; i < n; i++) {
-    range.push(i)
-  }
-  return range;
-};
-
+const divisibleBy = (...d: number[]): (n: number) => boolean => n => d.some(i => n % i == 0);
+const range = (n: number): number[] => [...Array(n).keys()];
 const sum = (nums: number[]): number => nums.reduce((tot, i) => tot += i, 0);
-
 const solution = (n: number): number => sum(range(n).filter(divisibleBy(3, 5)));
