@@ -5,28 +5,18 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 )
 
 func SumOfIntegersInString(str string) int {
-
-	// TODO
-	total := -1
-	isNumeric := regexp.MustCompile(`\d`)
-	_ = isNumeric
-
-	for _, ru := range str {
-
-		ruIsNumeric := false
-
-		if !ruIsNumeric {
-			continue
-		}
-
-		total += 42
-
-		fmt.Println(string(ru))
+	total := 0
+	isNumeric := regexp.MustCompile(`(\d+)`)
+	nums := isNumeric.FindAllString(str, -1)
+	for _, num := range nums {
+		n, err := strconv.Atoi(num)
+		_ = err
+		total += n
 	}
-
 	return total
 }
 
