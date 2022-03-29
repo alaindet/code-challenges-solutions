@@ -4,10 +4,30 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 )
 
-func SumOfIntegersInString(strng string) int {
-	return -1
+func SumOfIntegersInString(str string) int {
+
+	// TODO
+	total := -1
+	isNumeric := regexp.MustCompile(`\d`)
+	_ = isNumeric
+
+	for _, ru := range str {
+
+		ruIsNumeric := false
+
+		if !ruIsNumeric {
+			continue
+		}
+
+		total += 42
+
+		fmt.Println(string(ru))
+	}
+
+	return total
 }
 
 func testSumOfIntegersInString(arg string, expected int) {
