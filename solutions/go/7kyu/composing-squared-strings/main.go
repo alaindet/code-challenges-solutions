@@ -53,12 +53,12 @@ func main() {
 			},
 			expected: "bNkTB\nhTrWO\nRTFVi\nCnnIj",
 		},
-		// {
-		// 	args: [...]string{
-		// 		"HXxA\nTGBf\nIPhg\nuUMD",
-		// 		"Hcbj\nqteH\nGbMJ\ngYPW",
-		// 	},
-		// 	expected: "HgYPW\nTGGbM\nIPhqt\nuUMDH",
-		// },
+		{
+			args: [...]string{
+				"HXxA\nTGBf\nIPhg\nuUMD",
+				"Hcbj\nqteH\nGbMJ\ngYPW",
+			},
+			expected: "HgYPW\nTGGbM\nIPhqt\nuUMDH",
+		},
 	})
 }
