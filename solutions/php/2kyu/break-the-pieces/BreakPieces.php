@@ -86,36 +86,49 @@ class BreakPieces {
 
         $areas = [];
         for ($areaId = 1; $areaId <= $areasCounter; $areaId++) {
+            $subshape = [];
+            $originX = null;
+            $originY = null;
             $clonedGrid = $this->cloneGrid();
+
             for ($x = 0; $x < $xmax; $x++) {
                 for ($y = 0; $y < $ymax; $y++) {
                     $cell = $clonedGrid[$x][$y];
-                    if ($cell !== $areaId) {
-                        $clonedGrid[$x][$y] = self::DISPOSABLE;
+
+                    if ($cell === $areaId) {
+                        if (empty($originX) && empty($originY)) {
+                            $originX = $x;
+                            $originY = $y;
+                        }
+
+                        $newX = $x - $originX;
+                        $newY = $y - $originY;
+
+                        if (!isset($subshape[$newX])) {
+                            $subshape[$newX] = [];
+                        }
+
+                        $subshape[$newX][$newY] = ' ';
                     }
                 }
             }
-            $areas[] = $clonedGrid;
+
+            $subshape = implode("\n", [
+                "+" . str_repeat("-", count($subshape[0])) . "+",
+                implode("\n", array_map(
+                    fn($subshape) => "|" . implode("", $subshape) . "|",
+                    $subshape,
+                )),
+                "+" . str_repeat("-", count($subshape[0])) . "+",
+            ]);
+
+            $areas[] = $subshape;
         }
 
-        dd(
-            implode("\n\n===\n\n", array_map(
-                fn($area) => implode("\n", array_map(
-                    fn($line) => implode("", $line),
-                    $area,
-                )),
-                $areas,
-            )) . "\n"
-        );
-
-
         // TODO: Remove
-        // dd(
-        //     implode("\n", array_map(
-        //         fn($line) => implode("", $line),
-        //         $this->grid
-        //     )) . "\n"
-        // );
+        dd(
+            implode("\n\n===\n\n", $areas) . "\n"
+        );
 
         return [];
     }
