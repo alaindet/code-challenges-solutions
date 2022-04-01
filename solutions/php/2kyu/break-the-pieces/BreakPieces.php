@@ -5,6 +5,7 @@ class BreakPieces {
 
     const NEVER_VISITED = -1;
     const BOUNDARY = 0;
+    const DISPOSABLE = '.';
 
     private array $grid = [];
 
@@ -40,12 +41,29 @@ class BreakPieces {
         return null;
     }
 
+    private function cloneGrid(): array {
+        $cloned = [];
+
+        $xmax = count($this->grid);
+        $ymax = count($this->grid[0]);
+
+        for ($x = 0; $x < $xmax; $x++) {
+            for ($y = 0; $y < $ymax; $y++) {
+                $cloned[$x][$y] = $this->grid[$x][$y];
+            }
+        }
+
+        return $cloned;
+    }
+
     public function process(string $shape): array {
         $this->grid = $this->shapeToGrid($shape);
         $areasCounter = 0;
+        $xmax = count($this->grid);
+        $ymax = count($this->grid[0]);
 
-        for ($x = 0, $xmax = count($this->grid); $x < $xmax; $x++) {
-            for ($y = 0, $ymax = count($this->grid[$x]); $y < $ymax; $y++) {
+        for ($x = 0; $x < $xmax; $x++) {
+            for ($y = 0; $y < $ymax; $y++) {
 
                 // Boundary
                 if ($this->grid[$x][$y] != ' ') {
@@ -66,13 +84,38 @@ class BreakPieces {
             }
         }
 
-        // TODO: Remove
+        $areas = [];
+        for ($areaId = 1; $areaId <= $areasCounter; $areaId++) {
+            $clonedGrid = $this->cloneGrid();
+            for ($x = 0; $x < $xmax; $x++) {
+                for ($y = 0; $y < $ymax; $y++) {
+                    $cell = $clonedGrid[$x][$y];
+                    if ($cell !== $areaId) {
+                        $clonedGrid[$x][$y] = self::DISPOSABLE;
+                    }
+                }
+            }
+            $areas[] = $clonedGrid;
+        }
+
         dd(
-            implode("\n", array_map(
-                fn($line) => implode("", $line),
-                $this->grid
+            implode("\n\n===\n\n", array_map(
+                fn($area) => implode("\n", array_map(
+                    fn($line) => implode("", $line),
+                    $area,
+                )),
+                $areas,
             )) . "\n"
         );
+
+
+        // TODO: Remove
+        // dd(
+        //     implode("\n", array_map(
+        //         fn($line) => implode("", $line),
+        //         $this->grid
+        //     )) . "\n"
+        // );
 
         return [];
     }
