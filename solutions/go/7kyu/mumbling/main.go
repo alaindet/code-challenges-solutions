@@ -1,12 +1,13 @@
 package main
 
+// https://www.codewars.com/kata/5667e8f4e3f572a8f2000039/train/go
+
 import (
 	"strings"
 	"unicode"
-	"unicode/utf8"
 )
 
-func Title(s string) string {
+func firstUpper(s string) string {
 	chars := []rune(s)
 	first := unicode.ToUpper(chars[0])
 	if len(chars) == 1 {
@@ -16,17 +17,16 @@ func Title(s string) string {
 }
 
 func buildSegment(c rune, times int) string {
-	return Title(strings.ToLower(strings.Repeat(string(c), times)))
+	return firstUpper(strings.ToLower(strings.Repeat(string(c), times)))
 }
 
-// https://www.codewars.com/kata/5667e8f4e3f572a8f2000039/train/go
 func Accum(s string) string {
 
-	charCount := utf8.RuneCountInString(s)
 	chars := []rune(s)
-	segments := make([]string, 0, charCount)
+	charsCount := len(chars)
+	segments := make([]string, 0, charsCount)
 
-	for i := 0; i < charCount; i++ {
+	for i := 0; i < charsCount; i++ {
 		segment := buildSegment(chars[i], i+1)
 		segments = append(segments, segment)
 	}
