@@ -1,0 +1,17 @@
+go 1.18
+
+use (
+  ./6kyu/weird-string-case
+
+  ./7kyu/alternate-capitalization
+  ./7kyu/composing-squared-strings
+  ./7kyu/longest-vowel-chain
+  ./7kyu/mumbling
+  ./7kyu/ordered-char-count
+  ./7kyu/previous-multiple-of-three
+  ./7kyu/shortest-word
+  ./7kyu/strong-number
+  ./7kyu/sum-integers-in-string
+
+  ./8kyu/century-from-year
+)
