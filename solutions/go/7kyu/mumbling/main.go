@@ -8,20 +8,11 @@ import (
 
 func Title(s string) string {
 	chars := []rune(s)
-	charsCount := utf8.RuneCountInString(s)
 	first := unicode.ToUpper(chars[0])
-
-	if charsCount == 1 {
+	if len(chars) == 1 {
 		return string(first)
 	}
-
-	theRest := ""
-
-	for i := 1; i < charsCount; i++ {
-		theRest += string(chars[i])
-	}
-
-	return string(first) + theRest
+	return string(first) + string(chars[1:])
 }
 
 func buildSegment(c rune, times int) string {
