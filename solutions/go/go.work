@@ -1,8 +1,9 @@
 go 1.18
 
 use (
-  ./6kyu/weird-string-case
   ./6kyu/duplicate-encoder
+  ./6kyu/reverse-rotate
+  ./6kyu/weird-string-case
 
   ./7kyu/alternate-capitalization
   ./7kyu/composing-squared-strings

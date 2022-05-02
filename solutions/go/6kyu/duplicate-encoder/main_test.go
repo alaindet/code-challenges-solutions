@@ -18,7 +18,7 @@ var testCases = []struct {
 	{"(( @", "))(("},
 }
 
-func TestAccum(t *testing.T) {
+func TestDuplicateEncode(t *testing.T) {
 	for _, c := range testCases {
 		t.Run(c.input, func(t *testing.T) {
 			assertStrings(t, DuplicateEncode(c.input), c.expected)
