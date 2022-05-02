@@ -1,6 +1,7 @@
 go 1.18
 
 use (
+  ./6kyu/camel-case
   ./6kyu/duplicate-encoder
   ./6kyu/reverse-rotate
   ./6kyu/weird-string-case
