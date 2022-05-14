@@ -2,6 +2,7 @@ go 1.18
 
 use (
   ./5kyu/anagrams
+  ./5kyu/non-repeating-character
 
   ./6kyu/camel-case
   ./6kyu/duplicate-encoder
