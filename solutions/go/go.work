@@ -1,6 +1,8 @@
 go 1.18
 
 use (
+  ./4kyu/snail-sort
+
   ./5kyu/anagrams
   ./5kyu/non-repeating-character
 
