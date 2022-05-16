@@ -1,6 +1,7 @@
 go 1.18
 
 use (
+  ./4kyu/next-same-digits
   ./4kyu/snail-sort
 
   ./5kyu/anagrams
