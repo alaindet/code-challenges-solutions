@@ -1,24 +1,29 @@
-# Codewars.com solutions
+# Code Challenges solutions
 
-This repository collects all my codewars.com *solutions* as well as *attempts*. Attempts have an `// ATTEMPT` comment on top. Every solution has a reference to the codewars website.
+This repository collects all the solutions I come up with multiple code challenges online, in different programming languages.
 
-## Directory structure
+Most solutions have unit tests and HTTP references
 
-The directory hierarchy follows this convention
+## Folder structure
 
 ```
-/solutions/$LANGUAGE/$DIFFICULTY/$KATA_NAME
+- $WEBSITE
+  |- $LANGUAGE
+     |- $MISC
 ```
 
-where
-
-- `$LANGUAGE` can be `javascript`, etc.
-- `$DIFFICULY` is based on the kyu system so `8kyu`, `7kyu`, `6kyu`... (lower number is more difficult)
-- `$KATA_NAME` is simply a `kebab-case` transformation of the Kata's name, like `pascals-triangle` for "Pascal's Triangle"
-
+- At the top level there are `$WEBSITE` folders, like `codewars.com`
+- Inside website folder, you'll find `$LANGUAGE` folders like `javascript` or `go`
+- Then `$MISC` folders depend on the website-specific structure
 
 ## Languages used so far
 
-- TypeScript
+- Go
 - JavaScript
 - PHP
+- Python
+- TypeScript
+
+## References
+- [https://leetcode.com](https://leetcode.com)
+- [https://codewars.com](https://codewars.com)
