@@ -1,68 +1,50 @@
 package main
 
-const (
-	air  = 0
-	rock = 1
-)
-
-// This does not work for very large arrays (thousands of elements)
 // https://leetcode.com/problems/trapping-rain-water/
 func trap(height []int) int {
-
 	water := 0
 	size := len(height)
-	lines := [][]int{}
 
-	// Build the 2D grid in reverse (lines go from bottom up)
 	for {
-		line := make([]int, size)
-		lineIsFlat := true
+		waterSegment := 0
+		allSubmerged := true
 
-		for i, h := range height {
-			if h > 0 {
-				line[i] = 1
-				lineIsFlat = false
-				height[i]--
-			} else {
-				line[i] = 0
-			}
-		}
+		for i := 0; i < size; i++ {
 
-		if lineIsFlat {
-			break
-		} else {
-			lines = append(lines, line)
-		}
-	}
-
-	for _, line := range lines {
-
-		waterLine := 0
-		for i, cell := range line {
-
-			// Is it a rock cell?
-			if cell == rock {
-				water += waterLine
-				waterLine = 0
+			// Is it a rock?
+			if height[i] > 0 {
+				water += waterSegment
+				waterSegment = 0
+				allSubmerged = false
+				height[i]-- // Sink
 				continue
 			}
 
-			// Is it on the edge?
+			// Is it an air cell on the edge?
 			if i == 0 || i == (size-1) {
-				waterLine = 0
+				waterSegment = 0
+				height[i]-- // Sink
 				continue
 			}
 
-			// Is it an air cell with a left rock cell?
-			if line[i-1] == rock {
-				waterLine = 1
+			// Is it an air cell with a left (sunken) rock?
+			if height[i-1] >= 0 {
+				waterSegment = 1
+				height[i]--
 				continue
 			}
 
-			// Is it just air?
-			if waterLine > 0 {
-				waterLine++
+			// Is it just an air cell?
+			if waterSegment > 0 {
+				waterSegment++
 			}
+
+			// Sink the cell
+			height[i]--
+		}
+
+		if allSubmerged {
+			break
 		}
 	}
 
