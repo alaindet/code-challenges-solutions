@@ -1,6 +1,8 @@
 go 1.18
 
 use (
+  ./3kyu/rail-fence-cipher
+
   ./4kyu/next-same-digits
   ./4kyu/snail-sort
 
