@@ -5,6 +5,7 @@ use (
   ./4kyu/snail-sort
 
   ./5kyu/anagrams
+  ./5kyu/beeramid
   ./5kyu/non-repeating-character
   ./5kyu/not-very-secure
 
