@@ -6,6 +6,7 @@ use (
 
   ./5kyu/anagrams
   ./5kyu/beeramid
+  ./5kyu/iterative-rotation-cipher
   ./5kyu/non-repeating-character
   ./5kyu/not-very-secure
 
