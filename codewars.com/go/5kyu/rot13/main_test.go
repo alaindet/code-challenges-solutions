@@ -10,7 +10,7 @@ type testCase struct {
 	expected string
 }
 
-func TestNextBigger(t *testing.T) {
+func TestRot13(t *testing.T) {
 
 	var testCases = []testCase{
 		{"EBG13 rknzcyr.", "ROT13 example."},
