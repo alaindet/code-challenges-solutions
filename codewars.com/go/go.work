@@ -13,6 +13,7 @@ use (
   ./5kyu/iterative-rotation-cipher
   ./5kyu/non-repeating-character
   ./5kyu/not-very-secure
+  ./5kyu/rot13
 
   ./6kyu/camel-case
   ./6kyu/duplicate-encoder
