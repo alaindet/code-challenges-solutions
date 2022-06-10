@@ -11,8 +11,12 @@ const (
 
 func main() {
 	// 118, 127, 136, 145, 226, 235, 244, 334
-	fmt.Println("FindAll(10,3)", FindAll(10, 3))
-	fmt.Println("FindAll(84, 4)", FindAll(84, 4))
+	// fmt.Println("FindAll(10,3)", FindAll(10, 3))
+	// fmt.Println("FindAll(84, 4)", FindAll(84, 4))
+
+	for _, digits := range slice(3, 1) {
+		fmt.Println("digits", digits)
+	}
 }
 
 // WARNING: Does not work for big numbers
