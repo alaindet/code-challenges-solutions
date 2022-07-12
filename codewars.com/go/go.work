@@ -12,6 +12,7 @@ use (
   ./5kyu/beeramid
   ./5kyu/isbn10-validation
   ./5kyu/iterative-rotation-cipher
+  ./5kyu/moving-zeros-to-end
   ./5kyu/non-repeating-character
   ./5kyu/not-very-secure
   ./5kyu/rot13
