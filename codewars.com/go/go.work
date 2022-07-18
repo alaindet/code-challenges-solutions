@@ -18,6 +18,7 @@ use (
   ./5kyu/rot13
 
   ./6kyu/camel-case
+  ./6kyu/deadfish-swim
   ./6kyu/duplicate-encoder
   ./6kyu/find-parity-outlier
   ./6kyu/find-unique
