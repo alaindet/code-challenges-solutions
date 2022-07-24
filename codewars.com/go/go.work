@@ -3,16 +3,23 @@ go 1.18
 use (
   ./3kyu/rail-fence-cipher
 
+  ./4kyu/find-reverse-number
+  ./4kyu/how-many-numbers
   ./4kyu/next-same-digits
   ./4kyu/snail-sort
 
   ./5kyu/anagrams
   ./5kyu/beeramid
+  ./5kyu/directions-reduction
+  ./5kyu/isbn10-validation
   ./5kyu/iterative-rotation-cipher
+  ./5kyu/moving-zeros-to-end
   ./5kyu/non-repeating-character
   ./5kyu/not-very-secure
+  ./5kyu/rot13
 
   ./6kyu/camel-case
+  ./6kyu/deadfish-swim
   ./6kyu/duplicate-encoder
   ./6kyu/find-parity-outlier
   ./6kyu/find-unique
