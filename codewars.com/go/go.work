@@ -17,6 +17,7 @@ use (
   ./5kyu/non-repeating-character
   ./5kyu/not-very-secure
   ./5kyu/rot13
+  ./5kyu/weight-for-weight
 
   ./6kyu/camel-case
   ./6kyu/deadfish-swim
