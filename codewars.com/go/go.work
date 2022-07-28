@@ -6,6 +6,7 @@ use (
   ./4kyu/find-reverse-number
   ./4kyu/how-many-numbers
   ./4kyu/next-same-digits
+  ./4kyu/readable-duration
   ./4kyu/snail-sort
 
   ./5kyu/anagrams
