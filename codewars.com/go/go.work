@@ -27,6 +27,7 @@ use (
   ./6kyu/find-unique
   ./6kyu/persistence-bugger
   ./6kyu/reverse-rotate
+  ./6kyu/stop-spinning-words
   ./6kyu/sum-of-digits
   ./6kyu/weird-string-case
 
