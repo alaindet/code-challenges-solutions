@@ -1,10 +1,12 @@
 go 1.18
 
 use (
+  ./3kyu/last-digit-huge-number
   ./3kyu/rail-fence-cipher
 
   ./4kyu/find-reverse-number
   ./4kyu/how-many-numbers
+  ./4kyu/matrix-determinant
   ./4kyu/next-same-digits
   ./4kyu/readable-duration
   ./4kyu/snail-sort
