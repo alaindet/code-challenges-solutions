@@ -13,6 +13,7 @@ use (
 
   ./5kyu/anagrams
   ./5kyu/beeramid
+  ./5kyu/best-place-concert
   ./5kyu/clockwise-spiral
   ./5kyu/directions-reduction
   ./5kyu/isbn10-validation
