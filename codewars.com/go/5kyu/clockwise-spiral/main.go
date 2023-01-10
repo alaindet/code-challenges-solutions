@@ -3,7 +3,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 const (
@@ -17,11 +16,6 @@ var (
 	ErrOutOfBound     = errors.New("out of bound")
 	ErrAlreadyVisited = errors.New("already visited")
 )
-
-func main() {
-	s := CreateSpiral(4)
-	fmt.Println(s)
-}
 
 func CreateSpiral(n int) [][]int {
 
@@ -44,7 +38,6 @@ func CreateSpiral(n int) [][]int {
 				newPos, err := move(grid, pos, dir)
 
 				if err != nil {
-					fmt.Println(err.Error())
 					break
 				}
 
