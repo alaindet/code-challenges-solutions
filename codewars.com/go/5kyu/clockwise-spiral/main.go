@@ -1,76 +1,89 @@
 // https://www.codewars.com/kata/536a155256eb459b8700077e/train/go
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 const (
-	right = iota
-	down
-	left
-	top
+	Right = iota
+	Down
+	Left
+	Top
+)
+
+var (
+	ErrOutOfBound     = errors.New("out of bound")
+	ErrAlreadyVisited = errors.New("already visited")
 )
 
 func main() {
-	s := CreateSpiral(3)
+	s := CreateSpiral(4)
 	fmt.Println(s)
 }
 
-/*
-N = 4
-
-01	02	03	04
-12	13	14	05
-11	16	15	06
-10	09	08	07
-
-Clockwise spiral
-- - - \
-/ - \ |
-| < / |
-\ - - /
-*/
 func CreateSpiral(n int) [][]int {
-	dirs := []int{right, down, left, top}
-	visited := makeSquareGrid(n, false)
-	result := makeSquareGrid(n, 0)
-	prevPos := [2]int{0, 0}
-	pos := [2]int{0, 0}
-	i := 1
 
-mainLoop:
-	for {
-		for _, dir := range dirs {
-		dirLoop:
-			for {
-				switch dir {
-				case right:
-					pos[1] = pos[1] + 1
-				case down:
-					pos[0] = pos[0] + 1
-				case left:
-					pos[1] = pos[1] - 1
-				case top:
-					pos[0] = pos[0] - 1
-				}
-
-				if pos[0] >= n || pos[1] >= n || visited[pos[0]][pos[1]] {
-					pos = prevPos
-					break dirLoop
-				}
-
-				visited[pos[0]][pos[1]] = true
-				result[pos[0]][pos[1]] = i
-				i += 1
-				prevPos = pos
-			}
-		}
-
-		if i == n {
-			break mainLoop
-		}
+	if n < 1 {
+		return [][]int{}
 	}
 
-	return result
+	dirs := []int{Right, Down, Left, Top}
+	grid := makeSquareGrid(n, 0)
+	pos := [2]int{0, 0}
+	i := 1
+	last := n*n + 1
+
+	grid[pos[0]][pos[1]] = i
+	i += 1
+
+	for {
+		for _, dir := range dirs {
+			for {
+				newPos, err := move(grid, pos, dir)
+
+				if err != nil {
+					fmt.Println(err.Error())
+					break
+				}
+
+				grid[newPos[0]][newPos[1]] = i
+				pos = newPos
+				i += 1
+			}
+
+			if i == last {
+				return grid
+			}
+		}
+	}
+}
+
+func move(grid [][]int, pos [2]int, dir int) ([2]int, error) {
+	newPos := pos
+	size := len(grid)
+
+	switch dir {
+	case Right:
+		newPos[1] = pos[1] + 1
+	case Down:
+		newPos[0] = pos[0] + 1
+	case Left:
+		newPos[1] = pos[1] - 1
+	case Top:
+		newPos[0] = pos[0] - 1
+	}
+
+	if newPos[0] >= size || newPos[0] < 0 || newPos[1] >= size || newPos[1] < 0 {
+		return pos, ErrOutOfBound
+	}
+
+	if grid[newPos[0]][newPos[1]] != 0 {
+		return pos, ErrAlreadyVisited
+	}
+
+	return newPos, nil
 }
 
 func makeSquareGrid[T any](n int, defaultVal T) [][]T {

@@ -12,6 +12,11 @@ func TestCreateSpiral(t *testing.T) {
 		expected [][]int
 	}{
 		{
+			name:     "n<=1",
+			input:    -42,
+			expected: [][]int{},
+		},
+		{
 			name:     "n=1",
 			input:    1,
 			expected: [][]int{{1}},
