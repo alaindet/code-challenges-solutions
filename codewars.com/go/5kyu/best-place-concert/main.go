@@ -23,9 +23,7 @@ const (
 )
 
 var (
-	ErrEmptyGrid     = errors.New("empty grid")
 	ErrUnavaibleSpot = errors.New("unavailable spot")
-	dirs             = []int{Top, Right, Bottom, Left}
 	emptySpot        = ' '
 )
 
@@ -38,45 +36,44 @@ var (
 */
 func BestPlace(danceFloor []string) (int, int) {
 	pos := Position{-1, -1}
-	grid := initGrid(danceFloor)
+	grid, w, h := initGrid(danceFloor)
 	size := len(grid) * len(grid)
 	availables := make([]AvailableSpot, 0, size)
 
-	for i, line := range grid {
-		for j, spot := range line {
+	for row, _ := range grid {
+		for col, _ := range grid[row] {
 
-			if grid[i][j] != ' ' {
+			if grid[row][col] != emptySpot {
 				continue
 			}
 
-			score := 0
+			score := float64(h - row)
 
-			for _, dir := range dirs {
+			// TODO: Account for other factors
+			// for _, dir := range []int{Top, Right, Bottom, Left} {
 
-			}
+			// }
+
+			pos := Position{row, col}
+			availables = append(availables, AvailableSpot{pos, score})
 		}
 	}
 
 	return pos[0], pos[1]
 }
 
-func initGrid(danceFloor []string) Floor {
-	result := make(Floor, len(danceFloor))
+func initGrid(danceFloor []string) (Floor, int, int) {
+	grid := make(Floor, len(danceFloor))
 	for _, line := range danceFloor {
-		result = append(result, []rune(line))
+		grid = append(grid, []rune(line))
 	}
-	return result
+	w, h := len(grid[0]), len(grid)
+	return grid, w, h
 }
 
 func lookAround(grid Floor, pos Position, dir Direction) (Position, error) {
 	newPos := Position{pos[0], pos[1]}
-	w := len(grid)
-
-	if w == 0 {
-		return newPos, ErrEmptyGrid
-	}
-
-	h := len(grid[0])
+	w, h := len(grid[0]), len(grid)
 
 	switch dir {
 	case Top:
@@ -91,7 +88,7 @@ func lookAround(grid Floor, pos Position, dir Direction) (Position, error) {
 
 	invalidRowIndex := newPos[0] < 0 || newPos[0] >= h
 	invalidColIndex := newPos[1] < 0 || newPos[1] >= w
-	spotIsEmpty := grid[newPos[0]][newPos[1]] == ' '
+	spotIsEmpty := grid[newPos[0]][newPos[1]] == emptySpot
 
 	if invalidRowIndex || invalidColIndex || !spotIsEmpty {
 		return newPos, ErrUnavaibleSpot
