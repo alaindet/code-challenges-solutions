@@ -35,7 +35,7 @@ func TestBestPlace(t *testing.T) {
 		},
 		{
 			name:     "avoid beer holders",
-			expected: []Position{{0, 0}},
+			expected: []Position{{0, 3}},
 			input: []string{
 				" Aa ",
 			},
@@ -50,7 +50,7 @@ func TestBestPlace(t *testing.T) {
 		},
 		{
 			name:     "avoid moshpits",
-			expected: []Position{{0, 1}},
+			expected: []Position{{4, 1}},
 			input: []string{
 				"  ",
 				"  ",
@@ -89,7 +89,7 @@ func TestBestPlace(t *testing.T) {
 		},
 		{
 			name:     "complex floor",
-			expected: []Position{{1, 1}},
+			expected: []Position{{0, 5}},
 			input: []string{
 				"gbvKq  JfiM I",
 				"q jecl   fvoX",

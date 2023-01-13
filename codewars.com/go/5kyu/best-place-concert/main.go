@@ -3,20 +3,10 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"math"
 	"sort"
 	"unicode"
 )
-
-func main() {
-	fmt.Println(
-		BestPlace([]string{
-			"  A  AA",
-			"  A  A ",
-		}),
-	)
-}
 
 type Floor struct {
 	grid   [][]rune
@@ -75,10 +65,6 @@ func BestPlace(danceFloor []string) (int, int) {
 	sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
 	bestScore := scores[0]
 	bestSpot := spots[bestScore]
-
-	// TODO
-	fmt.Println(spots)
-	fmt.Println(scores)
 
 	return bestSpot.row, bestSpot.col
 }
@@ -170,6 +156,9 @@ func (f *Floor) factorMoshPits(pos Position, score float64) float64 {
 		}
 
 		if f.at(newPos) != emptySpot {
+			if adjacent >= 3 {
+				break
+			}
 			adjacent = 0
 			continue
 		}
@@ -181,14 +170,8 @@ func (f *Floor) factorMoshPits(pos Position, score float64) float64 {
 		return score
 	}
 
-	// TODO
 	maxScore := float64(f.height)
-	newScore := score - 2*maxScore
-	fmt.Printf("MOSHPIT! {%d %d} score %f => %f\n", pos.row, pos.col, score, newScore)
-	return newScore
-
-	// maxScore := float64(f.height)
-	// return score - 2*maxScore
+	return score - 2*maxScore
 }
 
 func (f *Floor) lookTowards(from Position, dir Direction) (Position, error) {
