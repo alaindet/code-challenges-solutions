@@ -1,98 +1,223 @@
 // https://www.codewars.com/kata/6112917ef983f2000ecbd506/train/go
 package main
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"math"
+	"sort"
+	"unicode"
+)
 
 func main() {
-	// ...
+	fmt.Println(
+		BestPlace([]string{
+			"  A  AA",
+			"  A  A ",
+		}),
+	)
 }
 
-type Floor [][]rune
-type Position [2]int
-type Direction int
-type AvailableSpot struct {
-	pos   Position
-	score float64
+type Floor struct {
+	grid   [][]rune
+	width  int
+	height int
+	size   int
 }
+
+type Position struct {
+	row int
+	col int
+}
+
+type Direction int
 
 const (
 	Top = iota
+	TopRight
 	Right
+	BottomRight
 	Bottom
+	BottomLeft
 	Left
+	TopLeft
 )
 
 var (
-	ErrUnavaibleSpot = errors.New("unavailable spot")
-	emptySpot        = ' '
+	ErrOutOfBound = errors.New("out of bound")
+	emptySpot     = ' '
 )
 
-/*
-- Spot must be empty
-- Initial score is calc'd from stage distance
-- Person in front account for *0.99^H where H is the index of letter
-- Each neighbor beer (up, right, bottom, left) accounts for *0.8
-- Moshpits should be marked and deprioritized
-*/
 func BestPlace(danceFloor []string) (int, int) {
-	pos := Position{-1, -1}
-	grid, w, h := initGrid(danceFloor)
-	size := len(grid) * len(grid)
-	availables := make([]AvailableSpot, 0, size)
+	f := NewFloor(danceFloor)
+	scores := make([]float64, 0, f.size)
+	spots := make(map[float64]Position, f.size)
 
-	for row, _ := range grid {
-		for col, _ := range grid[row] {
+	for row := range f.grid {
+		for col := range f.grid[row] {
 
-			if grid[row][col] != emptySpot {
+			pos := Position{row, col}
+
+			if f.at(pos) != emptySpot {
 				continue
 			}
 
-			score := float64(h - row)
+			score := f.factorStageDistance(pos)
+			score = f.factorFrontPerson(pos, score)
+			score = f.factorBeerHolders(pos, score)
+			score = f.factorMoshPits(pos, score)
 
-			// TODO: Account for other factors
-			// for _, dir := range []int{Top, Right, Bottom, Left} {
-
-			// }
-
-			pos := Position{row, col}
-			availables = append(availables, AvailableSpot{pos, score})
+			scores = append(scores, score)
+			spots[score] = pos
 		}
 	}
 
-	return pos[0], pos[1]
+	sort.Sort(sort.Reverse(sort.Float64Slice(scores)))
+	bestScore := scores[0]
+	bestSpot := spots[bestScore]
+
+	// TODO
+	fmt.Println(spots)
+	fmt.Println(scores)
+
+	return bestSpot.row, bestSpot.col
 }
 
-func initGrid(danceFloor []string) (Floor, int, int) {
-	grid := make(Floor, len(danceFloor))
+func NewFloor(danceFloor []string) *Floor {
+
+	grid := make([][]rune, 0, len(danceFloor))
+
 	for _, line := range danceFloor {
 		grid = append(grid, []rune(line))
 	}
-	w, h := len(grid[0]), len(grid)
-	return grid, w, h
+
+	width, height := len(grid[0]), len(grid)
+
+	return &Floor{
+		grid:   grid,
+		width:  width,
+		height: height,
+		size:   width * height,
+	}
 }
 
-func lookAround(grid Floor, pos Position, dir Direction) (Position, error) {
-	newPos := Position{pos[0], pos[1]}
-	w, h := len(grid[0]), len(grid)
+func (f *Floor) at(pos Position) rune {
+	return f.grid[pos.row][pos.col]
+}
+
+func (f *Floor) factorStageDistance(pos Position) float64 {
+	return float64(f.height - pos.row)
+}
+
+func (f *Floor) factorFrontPerson(pos Position, score float64) float64 {
+	frontPos, err := f.lookTowards(pos, Top)
+	if err != nil {
+		return score
+	}
+	frontSpot := f.at(frontPos)
+	if frontSpot == emptySpot {
+		return score
+	}
+	exp := float64(byte(unicode.ToLower(frontSpot)) - byte('a') + 1)
+	factor := math.Pow(0.99, exp)
+	return score * factor
+}
+
+func (f *Floor) factorBeerHolders(pos Position, score float64) float64 {
+
+	count := 0
+
+	for _, dir := range []Direction{Top, Right, Bottom, Left} {
+		newPos, err := f.lookTowards(pos, dir)
+
+		if err != nil {
+			continue
+		}
+
+		if unicode.IsUpper(f.at(newPos)) {
+			count += 1
+		}
+	}
+
+	if count == 0 {
+		return score
+	}
+
+	factor := math.Pow(0.80, float64(count))
+	return score * factor
+}
+
+func (f *Floor) factorMoshPits(pos Position, score float64) float64 {
+
+	adjacent := 0
+	dirs := []Direction{
+		Top,
+		TopRight,
+		Right,
+		BottomRight,
+		Bottom,
+		BottomLeft,
+		Left,
+		TopLeft,
+		Top,
+	}
+
+	for _, dir := range dirs {
+		newPos, err := f.lookTowards(pos, dir)
+
+		if err != nil {
+			continue
+		}
+
+		if f.at(newPos) != emptySpot {
+			adjacent = 0
+			continue
+		}
+
+		adjacent += 1
+	}
+
+	if adjacent < 3 {
+		return score
+	}
+
+	// TODO
+	maxScore := float64(f.height)
+	newScore := score - 2*maxScore
+	fmt.Printf("MOSHPIT! {%d %d} score %f => %f\n", pos.row, pos.col, score, newScore)
+	return newScore
+
+	// maxScore := float64(f.height)
+	// return score - 2*maxScore
+}
+
+func (f *Floor) lookTowards(from Position, dir Direction) (Position, error) {
+	deltaRow, deltaCol := 0, 0
 
 	switch dir {
 	case Top:
-		newPos[0] = newPos[0] - 1
+		deltaRow, deltaCol = -1, 0
+	case TopRight:
+		deltaRow, deltaCol = -1, 1
 	case Right:
-		newPos[1] = newPos[1] + 1
+		deltaRow, deltaCol = 0, 1
+	case BottomRight:
+		deltaRow, deltaCol = 1, 1
 	case Bottom:
-		newPos[0] = newPos[0] + 1
+		deltaRow, deltaCol = 1, 0
+	case BottomLeft:
+		deltaRow, deltaCol = 1, -1
 	case Left:
-		newPos[1] = newPos[1] - 1
+		deltaRow, deltaCol = 0, -1
+	case TopLeft:
+		deltaRow, deltaCol = -1, -1
 	}
 
-	invalidRowIndex := newPos[0] < 0 || newPos[0] >= h
-	invalidColIndex := newPos[1] < 0 || newPos[1] >= w
-	spotIsEmpty := grid[newPos[0]][newPos[1]] == emptySpot
+	to := Position{from.row + deltaRow, from.col + deltaCol}
 
-	if invalidRowIndex || invalidColIndex || !spotIsEmpty {
-		return newPos, ErrUnavaibleSpot
+	if to.row < 0 || to.row >= f.height || to.col < 0 || to.col >= f.width {
+		return to, ErrOutOfBound
 	}
 
-	return newPos, nil
+	return to, nil
 }
