@@ -21,7 +21,6 @@ use (
 	./5kyu/moving-zeros-to-end
 	./5kyu/non-repeating-character
 	./5kyu/not-very-secure
-	./5kyu/pete-baker
 	./5kyu/rot13
 	./5kyu/weight-for-weight
 
