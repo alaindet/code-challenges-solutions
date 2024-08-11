@@ -8,7 +8,7 @@ def disemvowel(input: str) -> str:
 
 # -----------------------------------------------------------------------------
 
-testCases: list[tuple[str, str]] = [
+test_cases: list[tuple[str, str]] = [
     (
         'This website is for losers LOL!',
         'Ths wbst s fr lsrs LL!',
@@ -23,8 +23,8 @@ testCases: list[tuple[str, str]] = [
     ),
 ]
 
-for testCase in testCases:
-    given, expected = testCase
+for test_case in test_cases:
+    given, expected = test_case
     result = disemvowel(given)
     outcome = result == expected
     print('PASSED' if outcome else 'NOT PASSED')

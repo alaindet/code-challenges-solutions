@@ -19,7 +19,7 @@ def likes(names: list[str]) -> str:
         
 # -----------------------------------------------------------------------------
 
-testCases = [
+test_cases = [
     {
         'input': [],
         'expected': 'no one likes this',
@@ -42,7 +42,7 @@ testCases = [
     },
 ]
 
-for testCase in testCases:
-    result = likes(testCase['input'])
-    outcome = result == testCase['expected']
+for test_case in test_cases:
+    result = likes(test_case['input'])
+    outcome = result == test_case['expected']
     print('PASSED' if outcome else 'NOT PASSED')

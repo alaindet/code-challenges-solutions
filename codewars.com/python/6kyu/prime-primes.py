@@ -31,13 +31,13 @@ def prime_primes(n: int) -> tuple[int, int]:
 
 # -----------------------------------------------------------------------------
 
-testCases: list[tuple[int, tuple[int, int]]] = [
+test_cases: list[tuple[int, tuple[int, int]]] = [
     (6, (3, 1)),
     (4, (1, 0)),
 ]
 
-for testCase in testCases:
-    given, expected = testCase
+for test_case in test_cases:
+    given, expected = test_case
     result = prime_primes(given)
     outcome = result == expected
     print('PASSED' if outcome else 'NOT PASSED')
