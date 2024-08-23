@@ -33,6 +33,7 @@ use (
 	./6kyu/reverse_rotate
 	./6kyu/stop_spinning_words
 	./6kyu/sum_of_digits
+	./6kyu/valid_braces
 	./6kyu/weird_string_case
 
 	./7kyu/alternate_capitalization
