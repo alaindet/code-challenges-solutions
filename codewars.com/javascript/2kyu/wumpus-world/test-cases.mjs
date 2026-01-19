@@ -9,16 +9,16 @@ import { CaveRoom } from './wumpus-world.mjs'
  */
 
 export const TEST_CASES = [
-  // {
-  //   name: '#01',
-  //   expected: true,
-  //   input: [
-  //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
-  //     [CaveRoom.Empty, CaveRoom.Wumpus, CaveRoom.Empty, CaveRoom.Empty],
-  //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Gold],
-  //     [CaveRoom.Pit, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
-  //   ],
-  // },
+  {
+    name: '#01',
+    expected: true,
+    input: [
+      [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
+      [CaveRoom.Empty, CaveRoom.Wumpus, CaveRoom.Empty, CaveRoom.Empty],
+      [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Gold],
+      [CaveRoom.Pit, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
+    ],
+  },
   // {
   //   name: '#02',
   //   expected: true,
@@ -49,16 +49,16 @@ export const TEST_CASES = [
   //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
   //   ],
   // },
-  {
-    name: '#05',
-    expected: true,
-    input: [
-      [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Wumpus, CaveRoom.Empty],
-      [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
-      [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Pit],
-      [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Gold],
-    ],
-  },
+  // {
+  //   name: '#05',
+  //   expected: true,
+  //   input: [
+  //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Wumpus, CaveRoom.Empty],
+  //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty],
+  //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Pit],
+  //     [CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Empty, CaveRoom.Gold],
+  //   ],
+  // },
   // {
   //   name: '#06',
   //   expected: true,
