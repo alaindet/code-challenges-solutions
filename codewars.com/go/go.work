@@ -10,6 +10,7 @@ use (
 	./4kyu/next_same_digits
 	./4kyu/readable_duration
 	./4kyu/snail_sort
+	./4kyu/vigenere_cipher_helper
 
 	./5kyu/anagrams
 	./5kyu/beeramid
